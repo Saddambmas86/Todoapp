@@ -1,0 +1,620 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5f5f5;
+    --high-priority: #ff6b6b;
+    --medium-priority: #ffd93d;
+    --low-priority: #6bff6b;
+    --completed-color: #a0a0a0;
+    --text-color: #333;
+    --text-secondary: #666;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --bg-color: #f5f5f5;
+    --card-bg: white;
+    --input-bg: white;
+    --task-item-bg: #f0f0f0;
+}
+
+[data-theme="dark"] {
+    --primary-color: #64b5f6;
+    --secondary-color: #2d2d2d;
+    --high-priority: #ff6b6b;
+    --medium-priority: #ffd93d;
+    --low-priority: #6bff6b;
+    --completed-color: #4a4a4a;
+    --text-color: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --input-bg: #3d3d3d;
+    --task-item-bg: #363636;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: rotate(30deg);
+}
+
+header {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.task-input {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+input[type="text"], select {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--secondary-color);
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+select {
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357abd;
+}
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .tab-btn {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .tab-btn:hover {
+    background-color: rgba(100, 181, 246, 0.2);
+}
+
+[data-theme="dark"] .tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.task-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    position: relative;
+    overflow: visible;
+}
+
+.task-category {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    min-width: 250px;
+    flex: 1;
+    position: relative;
+}
+
+.task-category h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+ul {
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--task-item-bg);
+    margin-bottom: 0.5rem;
+    border-radius: var(--border-radius);
+}
+
+.task-item.high {
+    border-left: 4px solid var(--high-priority);
+}
+
+.task-item.medium {
+    border-left: 4px solid var(--medium-priority);
+}
+
+.task-item.low {
+    border-left: 4px solid var(--low-priority);
+}
+
+.task-content {
+    flex: 1;
+    color: var(--text-color);
+}
+
+.task-date {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.task-actions button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.task-actions button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+}
+
+@media (max-width: 600px) {
+    .task-input {
+        flex-direction: column;
+    }
+    
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .task-list {
+        flex-direction: column;
+    }
+
+    .task-category {
+        min-width: 100%;
+    }
+}
+
+.completed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+.completed-header h2 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.calendar-toggle {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.calendar-toggle:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+.calendar-popup {
+    display: none;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 250px;
+}
+
+.calendar-popup.show {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calendar-container {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+}
+
+.month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.month-header button {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 0.85rem;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.month-header button:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+#currentMonth {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+    flex: 1;
+    text-align: center;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-header span {
+    padding: 0.25rem;
+    font-size: 0.7rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    text-align: center;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-color);
+    border-radius: 50%;
+    margin: 1px;
+    position: relative;
+    user-select: none;
+    width: 28px;
+    height: 28px;
+    z-index: 1;
+}
+
+.calendar-day:not(.other-month) {
+    cursor: pointer;
+}
+
+.calendar-day:not(.other-month):hover {
+    background-color: rgba(74, 144, 226, 0.1);
+    transform: scale(1.1);
+}
+
+.calendar-day.selected {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: 500;
+    transform: scale(1.1);
+}
+
+.calendar-day.selected:hover {
+    background-color: #357abd;
+}
+
+.calendar-day.today {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.calendar-day.today.selected {
+    color: white;
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+}
+
+.calendar-day.has-tasks::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: #4a90e2;
+    border-radius: 50%;
+}
+
+.calendar-day.selected.has-tasks::after {
+    background-color: white;
+}
+
+.completed-tasks-container {
+    margin-top: 1rem;
+}
+
+.completed-tasks-container h3 {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+#completedTasks {
+    list-style: none;
+    padding: 0;
+}
+
+/* Add overlay when calendar is open */
+.calendar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 999;
+    display: none;
+}
+
+.calendar-overlay.show {
+    display: block;
+}
+
+.sticky-notes-box {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    width: 250px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1rem;
+    z-index: 1000;
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+}
+
+.sticky-notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.sticky-notes-header h2 {
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.add-note-btn {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.add-note-btn:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+.sticky-notes-container {
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 60vh;
+}
+
+.sticky-note {
+    background-color: var(--task-item-bg);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    position: relative;
+}
+
+.sticky-note textarea {
+    width: 100%;
+    min-height: 60px;
+    max-height: 150px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    resize: vertical;
+    padding: 0;
+    margin: 0;
+}
+
+.sticky-note textarea:focus {
+    outline: none;
+}
+
+.sticky-note-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.sticky-note-actions button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 0.9rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.sticky-note-actions button:hover {
+    color: var(--primary-color);
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+@media (max-width: 768px) {
+    .sticky-notes-box {
+        display: none;
+    }
+} 

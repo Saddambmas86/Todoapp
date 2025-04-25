@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Todo App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <h1>Advanced Todo App</h1>
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="task-input">
+                <input type="text" id="taskInput" placeholder="Add a new task...">
+                <select id="prioritySelect">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button id="addTaskBtn"><i class="fas fa-plus"></i> Add Task</button>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="all">All Tasks</button>
+            <button class="tab-btn" data-tab="high">High</button>
+            <button class="tab-btn" data-tab="medium">Medium</button>
+            <button class="tab-btn" data-tab="low">Low</button>
+        </div>
+
+        <div class="task-list">
+            <div class="task-category" id="high-priority">
+                <h2>High Priority Tasks</h2>
+                <ul id="highTasks"></ul>
+            </div>
+            <div class="task-category" id="medium-priority">
+                <h2>Medium Priority Tasks</h2>
+                <ul id="mediumTasks"></ul>
+            </div>
+            <div class="task-category" id="low-priority">
+                <h2>Low Priority Tasks</h2>
+                <ul id="lowTasks"></ul>
+            </div>
+            <div class="task-category" id="completed-tasks">
+                <div class="completed-header">
+                    <h2>Completed Tasks</h2>
+                    <button id="calendarToggle" class="calendar-toggle" type="button" aria-label="Toggle Calendar">
+                        <i class="fas fa-calendar"></i>
+                    </button>
+                </div>
+                <div id="calendarPopup" class="calendar-popup">
+                    <div class="calendar-container">
+                        <div class="month-header">
+                            <button id="prevMonth" type="button" aria-label="Previous Month">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="currentMonth">April 2025</span>
+                            <button id="nextMonth" type="button" aria-label="Next Month">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-header">
+                            <span>Sun</span>
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+                </div>
+                <div class="completed-tasks-container">
+                    <h3>Tasks Completed Today</h3>
+                    <ul id="completedTasks"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sticky-notes-box">
+        <div class="sticky-notes-header">
+            <h2>Quick Notes</h2>
+            <button id="addNoteBtn" class="add-note-btn" title="Add New Note">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <div id="stickyNotesContainer" class="sticky-notes-container">
+            <!-- Notes will be added here dynamically -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
